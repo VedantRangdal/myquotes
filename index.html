@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quote of the Day</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: skyblue;
+      color: white;
+    }
+    
+    #form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    
+    h3 {
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+    }
+    
+    #quote {
+      font-size: 1.2rem;
+      text-align: center;
+      margin-top: 2rem;
+    }
+    
+    #submit-button {
+      background-color: darkblue;
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="form">
+    <h3>Quote of the Day</h3>
+    <label for="name">Name:</label>
+    <input type="text" id="name" required>
+    <label for="age">Age:</label>
+    <input type="number" id="age" required>
+    <label for="height">Height:</label>
+    <input type="number" id="height" required>
+    <label for="gender">Gender:</label>
+    <select id="gender" required>
+      <option disabled selected>Choose here</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+      <option value="walmart">Walmart</option>
+    </select>
+    <button id="submit-button" onclick="submitForm()">Submit</button>
+  </div>
+
+  <div id="result" style="display: none;">
+    <h3>Here is your answer</h3>
+    <p id="quote"></p>
+  </div>
+
+  <script>
+    function submitForm() {
+      const name = document.getElementById('name').value;
+      const age = document.getElementById('age').value;
+      const height = document.getElementById('height').value;
+      const gender = document.getElementById('gender').value;
+
+      if (name && age && height && gender) {
+        document.getElementById('form').style.display = 'none';
+        document.getElementById('result').style.display = 'block';
+
+        let quote = '';
+        let quoteHeading = 'Quote of the Day';
+
+        if (gender === 'male') {
+          quoteHeading = 'Quote of the Day for ' + name;
+          quote = getRandomMaleQuote();
+        } else if (gender === 'female') {
+          quote = getRandomFemaleQuote();
+        } else if (gender === 'walmart') {
+          quoteHeading = 'Quote of the Day for ' + name;
+          quote = getRandomWalmartQuote();
+        }
+
+        document.getElementById('quote').textContent = quoteHeading + ": \"" + quote + "\"";
+      }
+    }
+
+    function getRandomFemaleQuote() {
+      const quotes = [
+        "Beauty isn’t about having a pretty face. It’s about having a pretty mind, a pretty heart, and a pretty soul.",
+        "A real girl isn’t perfect, and a perfect girl isn’t real.",
+        "Confidence is the most beautiful thing a girl can wear."
+      ];
+
+      return quotes[Math.floor(Math.random() * quotes.length)];
+    }
+
+    function getRandomMaleQuote() {
+      const quotes = [
+        "Stay away from those people who try to disparage your ambitions. Small minds will always do that, but great minds will give you a feeling that you can become great too.",
+        "When you give joy to other people, you get more joy in return. You should give a good thought to happiness that you can give out.",
+        "Success is not final; failure is not fatal: It is the courage to continue that counts."
+      ];
+
+      return quotes[Math.floor(Math.random() * quotes.length)];
+    }
+
+    function getRandomWalmartQuote() {
+      const quotes = [
+        "Focus on something the customer wants, and then deliver it.",
+        "There is only one boss. The customer.",
+        "I think there are people living in Walmart dressed up as employees."
+      ];
+
+      return quotes[Math.floor(Math.random() * quotes.length)];
+    }
+  </script>
+</body>
+</html>
